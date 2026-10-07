@@ -1204,11 +1204,19 @@ textarea {
 
     .menu-toggle {
         display: block;
-        z-index: 110
+        z-index: 110;
+        color: #fff; /* Hamburger lines: white on mobile hero */
     }
 
+    /* When scrolled on light header background, hamburger is dark for visibility */
     .header.scrolled .menu-toggle {
-        color: #211f1c
+        color: #211f1c;
+    }
+
+    /* When menu is open (cross state), always black against the light nav panel */
+    .menu-toggle.open,
+    .header.scrolled .menu-toggle.open {
+        color: #000;
     }
 
     .hero {
