@@ -79,3 +79,4 @@ document.getElementById('inquiryForm').addEventListener('submit',e=>{
 });
 
 let touchStartX=0;lightbox.addEventListener('touchstart',e=>touchStartX=e.changedTouches[0].screenX,{passive:true});lightbox.addEventListener('touchend',e=>{const dx=e.changedTouches[0].screenX-touchStartX;if(Math.abs(dx)>50)moveLightbox(dx<0?1:-1)},{passive:true});
+ 
