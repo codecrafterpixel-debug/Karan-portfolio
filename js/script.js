@@ -1,6 +1,8 @@
 const body=document.body, preloader=document.getElementById('preloader'), header=document.getElementById('header'), progress=document.getElementById('progress'), menuToggle=document.getElementById('menuToggle'), nav=document.getElementById('nav');
 
 window.addEventListener('load',()=>{setTimeout(()=>{preloader.classList.add('hide');body.classList.remove('loading')},500)});
+// Hard fallback: force-hide preloader after 4s in case load event is delayed on slow connections
+setTimeout(()=>{preloader.classList.add('hide');body.classList.remove('loading')},4000);
 body.classList.add('loading');
 
 function scrollUI(){
@@ -13,6 +15,26 @@ window.addEventListener('scroll',scrollUI,{passive:true}); scrollUI();
 
 menuToggle.addEventListener('click',()=>{nav.classList.toggle('open');menuToggle.classList.toggle('open');menuToggle.setAttribute('aria-label',nav.classList.contains('open')?'Close menu':'Open menu')});
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menuToggle.classList.remove('open')}));
+
+// Smooth scroll with fixed header offset
+function smoothScrollTo(targetId) {
+  const target = document.querySelector(targetId);
+  if (!target) return;
+  const headerHeight = header.offsetHeight;
+  const targetTop = target.getBoundingClientRect().top + window.scrollY - headerHeight;
+  window.scrollTo({ top: targetTop, behavior: 'smooth' });
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (href === '#' || href.length <= 1) return;
+    e.preventDefault();
+    smoothScrollTo(href);
+    // Update URL hash without jumping
+    history.pushState(null, '', href);
+  });
+});
 
 document.getElementById('backtop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
