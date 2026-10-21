@@ -34,3 +34,4 @@ Replace the canonical URL and Instagram URL when the final domain/social account
 
 ## Supplied asset
 - `assets/karan-shah-owner.webp` — Karan Shah owner/profile portrait supplied by the client.
+ 
